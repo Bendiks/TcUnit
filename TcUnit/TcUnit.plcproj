@@ -90,6 +90,11 @@
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <LibraryReference Include="Base Interfaces,newest,System">
+      <Namespace>IBaseLibrary</Namespace>
+    </LibraryReference>
+  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>

@@ -25,6 +25,50 @@ PROPERTY PUBLIC AbortAfterFail : BOOL]]></Declaration>
         </Implementation>
       </Set>
     </Property>
+    <Method Name="AnyTypeClassToString" Id="{30d0c3c8-13eb-4e16-b6b4-354dc6911c78}">
+      <Declaration><![CDATA[METHOD AnyTypeClassToString : STRING
+VAR_INPUT
+  AnyTypeClass: __SYSTEM.TYPE_CLASS;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE UDINT_TO_INT(AnyTypeClass) OF
+    IBaseLibrary.TypeClass.TYPE_BOOL :
+        AnyTypeClassToString := 'BOOL';
+    IBaseLibrary.TypeClass.TYPE_BIT :
+        AnyTypeClassToString := 'BIT';
+    IBaseLibrary.TypeClass.TYPE_BYTE :
+        AnyTypeClassToString := 'BYTE';
+    IBaseLibrary.TypeClass.TYPE_WORD :
+        AnyTypeClassToString := 'WORD';
+    IBaseLibrary.TypeClass.TYPE_DWORD :
+        AnyTypeClassToString := 'DWORD';
+    IBaseLibrary.TypeClass.TYPE_LWORD :
+        AnyTypeClassToString := 'LWORD';
+    IBaseLibrary.TypeClass.TYPE_SINT :
+        AnyTypeClassToString := 'SINT';
+    IBaseLibrary.TypeClass.TYPE_INT :
+        AnyTypeClassToString := 'INT';
+    ELSE
+        AnyTypeClassToString := 'UNKNOWN';
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AnyValueToHexStr" Id="{5b80ec5b-d2be-4693-bdb8-e3d08cd30d8b}">
+      <Declaration><![CDATA[METHOD AnyValueToHexStr : STRING(80)
+VAR_INPUT
+  value: ANY;
+END_VAR
+VAR
+  i: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i:=0 TO DINT_TO_INT(value.diSize) DO
+  AnyValueToHexStr := CONCAT(BYTE_TO_HEXSTR(value.pValue[i], 2, FALSE), AnyValueToHexStr);
+END_FOR
+AnyValueToHexStr := CONCAT('0x', AnyValueToHexStr);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="AreEqualBOOL" Id="{d44b1c59-2ce6-4073-b2f6-a61898012d5b}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualBOOL : BOOL
 VAR_INPUT
@@ -439,6 +483,59 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Equal" Id="{26e94513-6c91-4911-847d-0d85bae2b212}">
+      <Declaration><![CDATA[METHOD Equal : BOOL
+VAR_INPUT
+  expected: ANY;
+  actual: ANY;
+  message: STRING(80);
+END_VAR
+VAR
+  i: INT;
+  expected_value_str: STRING(80);
+  actual_value_str: STRING(80);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Equal := FALSE;
+IF Expected.TypeClass <> Actual.TypeClass THEN
+  PrintFailed(
+    TO_STRING(actual.TypeClass), 
+    TO_STRING(expected.TypeClass), 
+    '',
+    CONCAT(message, ' Types do not match'), 
+    AnyTypeClassToString(expected.TypeClass));
+  RETURN;
+END_IF
+ 
+// TODO: check for strings if the size is the length size or declared size
+IF (Expected.diSize <> Actual.diSize) THEN
+  PrintFailed(
+    TO_STRING(actual.diSize), 
+    TO_STRING(expected.diSize), 
+    '', 
+    CONCAT(message, ' Typesizes do not match'), 
+    AnyTypeClassToString(expected.TypeClass));
+  RETURN;
+END_IF
+ 
+// Compare each byte in the ANY-types
+FOR i := 0 TO DINT_TO_INT(expected.diSize)-1 BY 1 DO
+    IF expected.pValue[i] <> Actual.pValue[i] THEN
+      // TODO: write a Function for printing the values of the type
+      PrintFailed(
+        AnyValueToHexStr(actual), 
+        AnyValueToHexStr(expected), 
+        '', 
+        message, 
+        AnyTypeClassToString(expected.TypeClass));
+      RETURN;
+    END_IF
+END_FOR
+Equal := TRUE;
+PrintPassed(message);]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="FB_init" Id="{5606c8dc-7239-4f13-999c-021a852b6d7d}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -622,6 +719,15 @@ THIS^.nState := 16#FFFF;]]></ST>
     <LineIds Name="FB_Assert.AbortAfterFail.Set">
       <LineId Id="2" Count="0" />
     </LineIds>
+    <LineIds Name="FB_Assert.AnyTypeClassToString">
+      <LineId Id="6" Count="16" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Assert.AnyValueToHexStr">
+      <LineId Id="5" Count="0" />
+      <LineId Id="9" Count="2" />
+    </LineIds>
     <LineIds Name="FB_Assert.AreEqualBOOL">
       <LineId Id="3" Count="4" />
       <LineId Id="2" Count="0" />
@@ -713,6 +819,30 @@ THIS^.nState := 16#FFFF;]]></ST>
       <LineId Id="3" Count="1" />
       <LineId Id="6" Count="6" />
       <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Assert.Equal">
+      <LineId Id="26" Count="0" />
+      <LineId Id="8" Count="1" />
+      <LineId Id="36" Count="1" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="10" Count="1" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="13" Count="1" />
+      <LineId Id="42" Count="4" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="19" Count="2" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="47" Count="4" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="24" Count="1" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="54" Count="0" />
     </LineIds>
     <LineIds Name="FB_Assert.FB_init">
       <LineId Id="7" Count="0" />
