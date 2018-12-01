@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.7">
+  <POU Name="TestAssert" Id="{b44ba88f-13ee-4471-878b-0b4cfe1c6ab5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TestAssert
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+  assert: FB_Assert('TestAssert');
+
+  test_assert_types_bool_and_real_are_different: FB_Assert('');
+  test_assert_types_int_and_int_are_not_different: FB_Assert('');
+  test_assert_sizes_bool_and_int_are_different: FB_Assert('');
+  test_assert_sizes_string10_and_string10_are_not_different: FB_Assert('');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[assert.AbortAfterFail := TRUE;
+CASE assert.State OF
+16#0000:
+  IF THIS^.types_bool_and_real_are_different() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#0010:
+  IF THIS^.types_int_and_int_are_not_different() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#0020:
+  IF THIS^.sizes_bool_and_int_are_different() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#0030:
+  IF THIS^.sizes_string10_and_string10_are_not_different() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#FFFF:
+  ;
+ELSE
+  assert.PrintPassed('Done');
+END_CASE]]></ST>
+    </Implementation>
+    <Method Name="sizes_bool_and_int_are_different" Id="{9ef206eb-eff2-4dc7-84e4-ef41a4183f45}">
+      <Declaration><![CDATA[METHOD sizes_bool_and_int_are_different : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected_bool: BOOL;
+  actual_int: INT;
+  
+  expected: BOOL;
+  actual: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[actual := test_assert_sizes_bool_and_int_are_different.sizes_are_different(expected_bool, actual_int);
+expected := TRUE;
+sizes_bool_and_int_are_different := assert.AreEqualBOOL(expected, actual, 'Sizes Bool and Int are different');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="sizes_string10_and_string10_are_not_different" Id="{0990f965-076b-4cc1-85ed-dcce88983fc9}">
+      <Declaration><![CDATA[METHOD sizes_string10_and_string10_are_not_different : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected_string: STRING(10);
+  actual_string: STRING(10);
+  
+  expected: BOOL;
+  actual: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[actual := test_assert_sizes_string10_and_string10_are_not_different.sizes_are_different(expected_string, actual_string);
+expected := FALSE;
+sizes_string10_and_string10_are_not_different := assert.AreEqualBOOL(expected, actual, 'Sizes String(10) and String(10) are not different');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="types_bool_and_real_are_different" Id="{af7a8071-4978-424b-92f4-7d4e733b9c03}">
+      <Declaration><![CDATA[METHOD types_bool_and_real_are_different : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected_bool: BOOL;
+  actual_real: REAL;
+
+  expected: BOOL;
+  actual: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[actual := test_assert_types_bool_and_real_are_different.types_are_different(expected_bool, actual_real);
+expected := TRUE;
+types_bool_and_real_are_different := assert.AreEqualBool(expected, actual, 'Types Bool and Real are different');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="types_int_and_int_are_not_different" Id="{4cf1fcb3-c11e-4525-9e77-92f9e7cb8bdd}">
+      <Declaration><![CDATA[METHOD types_int_and_int_are_not_different : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected_int: INT;
+  actual_int: INT;
+
+  expected: BOOL;
+  actual: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[actual := test_assert_types_int_and_int_are_not_different.types_are_different(expected_int, actual_int);
+expected := FALSE;
+types_int_and_int_are_not_different := assert.AreEqualBool(expected, actual, 'Types Int and Int are not different');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="TestAssert">
+      <LineId Id="83" Count="13" />
+      <LineId Id="102" Count="1" />
+      <LineId Id="105" Count="1" />
+      <LineId Id="97" Count="3" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="TestAssert.sizes_bool_and_int_are_different">
+      <LineId Id="5" Count="0" />
+      <LineId Id="12" Count="1" />
+    </LineIds>
+    <LineIds Name="TestAssert.sizes_string10_and_string10_are_not_different">
+      <LineId Id="5" Count="0" />
+      <LineId Id="12" Count="1" />
+    </LineIds>
+    <LineIds Name="TestAssert.types_bool_and_real_are_different">
+      <LineId Id="10" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+    <LineIds Name="TestAssert.types_int_and_int_are_not_different">
+      <LineId Id="13" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

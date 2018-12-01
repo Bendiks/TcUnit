@@ -31,11 +31,23 @@
   <ItemGroup>
     <Folder Include="GVLs" />
     <Folder Include="DUTs" />
+    <Folder Include="POUs\assert" />
+    <Folder Include="POUs\test" />
+    <Folder Include="POUs\test\assert" />
     <Folder Include="Version" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="POUs\FB_Assert.TcPOU">
+    <Compile Include="POUs\assert\FB_Assert.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\test\assert\TestAssert.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\test\TestMain.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Version\Global_Version.TcGVL">

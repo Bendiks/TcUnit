@@ -5819,9 +5819,12 @@
 	</DataTypes>
 	<Project ProjectGUID="{950F6C50-FCD9-4A2E-8AD8-796AD2C295F4}" Target64Bit="true" ShowHideConfigurations="#x3c7">
 		<System>
+			<Settings MaxCpus="4" NonWinCpus="1" Packages="2">
+				<Cpu CpuId="3"/>
+			</Settings>
 			<Tasks>
-				<Task Id="2" Priority="20" CycleTime="100000" AmsPort="350">
-					<Name>PlcTask</Name>
+				<Task Id="4" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>TestTask</Name>
 				</Task>
 			</Tasks>
 		</System>

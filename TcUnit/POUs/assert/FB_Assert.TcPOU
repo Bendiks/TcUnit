@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.7">
-  <POU Name="FB_Assert" Id="{031bc23b-feb9-4693-8484-d374894ef856}" SpecialFunc="None">
+  <POU Name="FB_Assert" Id="{15f76aa4-3e61-4336-98f8-17a9e5a514b9}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FB_Assert
 VAR
 	bMultipleLogFlag	: BOOL;
@@ -15,17 +15,17 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Property Name="AbortAfterFail" Id="{8dd11402-cb03-4242-ad4a-d1bd2959a807}">
+    <Property Name="AbortAfterFail" Id="{5700d4c1-40f8-48e9-a4a2-418d55508862}">
       <Declaration><![CDATA[{attribute 'monitoring':='call'}
 PROPERTY PUBLIC AbortAfterFail : BOOL]]></Declaration>
-      <Set Name="Set" Id="{68f81357-471b-4471-96ab-9048bf9957c8}">
+      <Set Name="Set" Id="{db7e5c23-5410-4964-8fab-532e1cd23de9}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[THIS^.bAbortAfterFailFlag := AbortAfterFail;]]></ST>
         </Implementation>
       </Set>
     </Property>
-    <Method Name="AnyTypeClassToString" Id="{30d0c3c8-13eb-4e16-b6b4-354dc6911c78}">
+    <Method Name="AnyTypeClassToString" Id="{3d65cbc7-8948-4493-a18d-b16dd3d18630}">
       <Declaration><![CDATA[METHOD AnyTypeClassToString : STRING
 VAR_INPUT
   AnyTypeClass: __SYSTEM.TYPE_CLASS;
@@ -54,7 +54,7 @@ END_VAR
 END_CASE]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AnyValueToHexStr" Id="{5b80ec5b-d2be-4693-bdb8-e3d08cd30d8b}">
+    <Method Name="AnyValueToHexStr" Id="{07c0b66f-8d7b-4d29-8a6f-bbba36fc826b}">
       <Declaration><![CDATA[METHOD AnyValueToHexStr : STRING(80)
 VAR_INPUT
   value: ANY;
@@ -63,13 +63,13 @@ VAR
   i: INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[FOR i:=0 TO DINT_TO_INT(value.diSize) DO
+        <ST><![CDATA[FOR i:=0 TO DINT_TO_INT(value.diSize)-1 DO
   AnyValueToHexStr := CONCAT(BYTE_TO_HEXSTR(value.pValue[i], 2, FALSE), AnyValueToHexStr);
 END_FOR
 AnyValueToHexStr := CONCAT('0x', AnyValueToHexStr);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualBOOL" Id="{d44b1c59-2ce6-4073-b2f6-a61898012d5b}">
+    <Method Name="AreEqualBOOL" Id="{f056821e-d656-4118-83e1-3c2746c0b216}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualBOOL : BOOL
 VAR_INPUT
 	bExpected	: BOOL;
@@ -85,7 +85,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualBYTE" Id="{f8e6cfc0-de5f-4c64-affd-39449b67dca4}">
+    <Method Name="AreEqualBYTE" Id="{f2f43b15-34ed-4241-b15d-49f14291821b}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualBYTE : BOOL
 VAR_INPUT
 	nExpected	: BYTE;
@@ -105,7 +105,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualDINT" Id="{fc81ea26-f029-4f96-88d7-2f83094046d0}">
+    <Method Name="AreEqualDINT" Id="{0aa2405e-2e35-4a09-bedd-fbe2e6c30c77}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualDINT : BOOL
 VAR_INPUT
 	nExpected	: DINT;
@@ -121,7 +121,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualDWORD" Id="{93ebbb7a-d418-40a8-a3c0-cd105fc25fa2}">
+    <Method Name="AreEqualDWORD" Id="{68608921-b325-4cbe-b512-be641b0119e5}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualDWORD : BOOL
 VAR_INPUT
 	nExpected	: DWORD;
@@ -141,7 +141,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualGUID" Id="{7b2271f5-bffa-4da9-8f73-f7980f243ad3}">
+    <Method Name="AreEqualGUID" Id="{72fbfbee-6351-418d-859a-5ec67c46ddd4}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualGUID : BOOL
 VAR_INPUT
 	stExpected	: GUID;
@@ -170,7 +170,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualHRESULT" Id="{41da78ec-7c0c-49ca-9f8f-5f32fae9eb7c}">
+    <Method Name="AreEqualHRESULT" Id="{3ed75c52-ac75-4d9d-a1e3-119fd5b80129}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualHRESULT : BOOL
 VAR_INPUT
 	hResultExp	: hResult;
@@ -190,7 +190,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualINT" Id="{10be9f05-e524-4c93-9a4d-ef0f2e4bc1b8}">
+    <Method Name="AreEqualINT" Id="{0c07dc45-8b12-4e39-8e85-e86f82c98a1e}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualINT : BOOL
 VAR_INPUT
 	nExpected	: INT;
@@ -206,7 +206,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualLINT" Id="{0fd87f6c-0a1b-461a-bcda-5f0039380d6a}">
+    <Method Name="AreEqualLINT" Id="{0abf683a-a95a-4536-b9b3-6e8ecff7b4d7}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualLINT : BOOL
 VAR_INPUT
 	nExpected	: LINT;
@@ -222,7 +222,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualLREAL" Id="{7a31b89e-30b1-4cbf-90e2-72aa770c1ef1}">
+    <Method Name="AreEqualLREAL" Id="{847abb54-575a-45db-9bd2-ce67c5be3bdd}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualLREAL : BOOL
 VAR_INPUT
 	fExpected	: LREAL;
@@ -259,7 +259,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualLTIME" Id="{18b3ef9b-afc7-4432-8aed-3626d019f492}">
+    <Method Name="AreEqualLTIME" Id="{5c47e67b-5bab-4853-aff0-e50ffefe94b9}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualLTIME : BOOL
 VAR_INPUT
 	tExpected		: LTIME;
@@ -276,7 +276,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualLWORD" Id="{6eb7897d-b291-453c-ad26-24e754a0152a}">
+    <Method Name="AreEqualLWORD" Id="{c876b562-3461-4e44-ab41-59b50c05f6de}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualLWORD : BOOL
 VAR_INPUT
 	nExpected	: LWORD;
@@ -296,7 +296,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualMEM" Id="{28d962b5-6de4-4c23-81c6-e579f356280b}">
+    <Method Name="AreEqualMEM" Id="{cfc6f8b4-5a40-47a0-bec2-aad22528dc12}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualMEM : BOOL
 VAR_INPUT
 	pExpected	: PVOID;
@@ -313,7 +313,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualREAL" Id="{2e246e7d-f99a-44b5-a8e9-e443f0a85e99}">
+    <Method Name="AreEqualREAL" Id="{97d9a76f-366d-48c3-a5be-40ed9272875e}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualREAL : BOOL
 VAR_INPUT
 	fExpected	: REAL;
@@ -350,7 +350,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualSINT" Id="{9bfc6ef7-d69e-441e-8275-1471afeeaeaa}">
+    <Method Name="AreEqualSINT" Id="{41c8e07f-09c6-4640-8cd8-d859e5ac0867}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualSINT : BOOL
 VAR_INPUT
 	nExpected	: SINT;
@@ -366,7 +366,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualSTRING" Id="{42fabced-fe99-4a22-b5e1-6009d93a6ca2}">
+    <Method Name="AreEqualSTRING" Id="{ca67352f-f9f7-426d-8cbc-95731e96d8fc}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualSTRING : BOOL
 VAR_INPUT
 	sExpected	: STRING(255);
@@ -382,7 +382,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualTIME" Id="{3db58974-551a-4513-9f3d-0c3562d1986a}">
+    <Method Name="AreEqualTIME" Id="{81d7f47c-00a9-42d5-825a-2834491294cc}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualTIME : BOOL
 VAR_INPUT
 	tExpected		: TIME;
@@ -399,7 +399,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualUDINT" Id="{1c8bec7e-1031-4d81-8c8a-b8514f8f4b70}">
+    <Method Name="AreEqualUDINT" Id="{732f3788-ab9d-41ba-845f-132f690125b8}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualUDINT : BOOL
 VAR_INPUT
 	nExpected	: UDINT;
@@ -415,7 +415,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualUINT" Id="{629cb228-5ec4-43b7-a7a1-f019f5a57138}">
+    <Method Name="AreEqualUINT" Id="{e037142b-7013-4b6a-8a4e-64dd86dccbfe}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualUINT : BOOL
 VAR_INPUT
 	nExpected	: UINT;
@@ -431,7 +431,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualULINT" Id="{1cea6302-03cd-47bd-b83e-c1e0180f9af2}">
+    <Method Name="AreEqualULINT" Id="{1e5204d5-5b39-4465-92cb-97f7e27f2387}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualULINT : BOOL
 VAR_INPUT
 	nExpected	: ULINT;
@@ -447,7 +447,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualUSINT" Id="{81d36fe2-891c-44ee-aea7-d2fe5a62a600}">
+    <Method Name="AreEqualUSINT" Id="{15cd31c3-90a8-4f44-a2fd-3c6952c0e43d}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualUSINT : BOOL
 VAR_INPUT
 	nExpected	: USINT;
@@ -463,7 +463,7 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="AreEqualWORD" Id="{4fbed08b-bb07-4a74-a61c-a264c218851b}">
+    <Method Name="AreEqualWORD" Id="{eff4114c-f1a9-45d9-9ea4-0e0cde43e885}">
       <Declaration><![CDATA[METHOD PUBLIC AreEqualWORD : BOOL
 VAR_INPUT
 	nExpected	: WORD;
@@ -483,8 +483,19 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Equal" Id="{26e94513-6c91-4911-847d-0d85bae2b212}">
-      <Declaration><![CDATA[METHOD Equal : BOOL
+    <Method Name="CHECK_TRUE" Id="{5cf50e75-5100-4dfc-bf41-911cdf216e52}">
+      <Declaration><![CDATA[METHOD CHECK_TRUE : BOOL
+VAR_INPUT
+  actual: BOOL;
+  message: STRING(80);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//CHECK_TRUE := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="equal" Id="{2e7d8d8d-f7e4-49ac-ae9e-e7c7da224eaf}">
+      <Declaration><![CDATA[METHOD equal : BOOL
 VAR_INPUT
   expected: ANY;
   actual: ANY;
@@ -497,8 +508,8 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Equal := FALSE;
-IF Expected.TypeClass <> Actual.TypeClass THEN
+        <ST><![CDATA[equal := FALSE;
+IF expected.TypeClass <> actual.TypeClass THEN
   PrintFailed(
     TO_STRING(actual.TypeClass), 
     TO_STRING(expected.TypeClass), 
@@ -509,7 +520,7 @@ IF Expected.TypeClass <> Actual.TypeClass THEN
 END_IF
  
 // TODO: check for strings if the size is the length size or declared size
-IF (Expected.diSize <> Actual.diSize) THEN
+IF (expected.diSize <> actual.diSize) THEN
   PrintFailed(
     TO_STRING(actual.diSize), 
     TO_STRING(expected.diSize), 
@@ -521,7 +532,7 @@ END_IF
  
 // Compare each byte in the ANY-types
 FOR i := 0 TO DINT_TO_INT(expected.diSize)-1 BY 1 DO
-    IF expected.pValue[i] <> Actual.pValue[i] THEN
+    IF expected.pValue[i] <> actual.pValue[i] THEN
       // TODO: write a Function for printing the values of the type
       PrintFailed(
         AnyValueToHexStr(actual), 
@@ -532,11 +543,11 @@ FOR i := 0 TO DINT_TO_INT(expected.diSize)-1 BY 1 DO
       RETURN;
     END_IF
 END_FOR
-Equal := TRUE;
+equal := TRUE;
 PrintPassed(message);]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{5606c8dc-7239-4f13-999c-021a852b6d7d}">
+    <Method Name="FB_init" Id="{ee1ac3c0-b8ad-4267-8eb8-624f17450cc2}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -548,7 +559,7 @@ END_VAR
         <ST><![CDATA[THIS^.sInstanceName := sInstanceName;]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsFalse" Id="{deea76ee-8451-4c7b-894e-a8ceef3ea32d}">
+    <Method Name="IsFalse" Id="{2dcbf202-0bda-4dfc-9b26-4631d23e01b9}">
       <Declaration><![CDATA[METHOD PUBLIC IsFalse : BOOL
 VAR_INPUT
 	bCondition	: BOOL;
@@ -565,7 +576,7 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsTrue" Id="{6b6647f6-5e4b-473e-8c17-b4dadfd0f227}">
+    <Method Name="IsTrue" Id="{a24d099f-2171-4a34-9862-23bc2588ff25}">
       <Declaration><![CDATA[METHOD PUBLIC IsTrue : BOOL
 VAR_INPUT
 	bCondition	: BOOL;
@@ -580,17 +591,17 @@ ELSE
 END_IF]]></ST>
       </Implementation>
     </Method>
-    <Property Name="MultipleLog" Id="{adc176e8-8bdb-49ef-8ec2-eb439373a713}">
+    <Property Name="MultipleLog" Id="{e65c30a2-36b2-41ac-a5d9-001d4df9c233}">
       <Declaration><![CDATA[{attribute 'monitoring':='call'}
 PROPERTY PUBLIC MultipleLog : BOOL]]></Declaration>
-      <Set Name="Set" Id="{58253ec5-6334-4059-9bae-8beb4b72faac}">
+      <Set Name="Set" Id="{dc7af215-1524-4c4a-a4eb-5bdf74448dd1}">
         <Declaration><![CDATA[]]></Declaration>
         <Implementation>
           <ST><![CDATA[THIS^.bMultipleLogFlag := MultipleLog;]]></ST>
         </Implementation>
       </Set>
     </Property>
-    <Method Name="PrintFailed" Id="{f06f6cd0-e3ef-4952-980e-82db05199b52}">
+    <Method Name="PrintFailed" Id="{6e6507ee-49c1-41b9-8bc2-abb9c4690d90}">
       <Declaration><![CDATA[METHOD PUBLIC PrintFailed
 VAR_INPUT
 	sActual		: STRING(80);
@@ -650,7 +661,7 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="PrintPassed" Id="{0299393b-cb5c-461d-85b2-7dc1f6aae01c}">
+    <Method Name="PrintPassed" Id="{808a1a4b-bc04-4e51-86e5-1ecee5e68e57}">
       <Declaration><![CDATA[METHOD PUBLIC PrintPassed
 VAR_INPUT
 	sMessage	: STRING(80);
@@ -682,9 +693,20 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="State" Id="{776f71a8-f8f1-4331-b1fe-2c42a22c0b57}">
+    <Method Name="sizes_are_different" Id="{a88eca58-27a9-4260-99a6-8e81f95104da}">
+      <Declaration><![CDATA[METHOD sizes_are_different : BOOL
+VAR_INPUT
+  expected: ANY;
+  actual: ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[sizes_are_different := expected.diSize <> actual.diSize;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="State" Id="{ee10ca13-1c33-40f8-b4a3-785842067dc4}">
       <Declaration><![CDATA[PROPERTY PUBLIC State : UDINT]]></Declaration>
-      <Get Name="Get" Id="{19bef539-a8e7-438b-bb9d-b43dcf94d6ac}">
+      <Get Name="Get" Id="{1558654a-c656-4fd9-b9de-f76a8367c689}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -692,7 +714,7 @@ END_VAR
           <ST><![CDATA[State := THIS^.nState;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{a8011dab-8ec1-4daf-9259-f807ecc0e996}">
+      <Set Name="Set" Id="{91c7a498-8e32-4a66-9fca-447fc8f67f5c}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
@@ -705,12 +727,23 @@ END_IF]]></ST>
         </Implementation>
       </Set>
     </Property>
-    <Method Name="StateMachineError" Id="{5baeb024-277b-48d8-b4b4-7c6fea616640}">
+    <Method Name="StateMachineError" Id="{e07a0e74-6ef8-4cb4-aa52-682a11581a7b}">
       <Declaration><![CDATA[METHOD PUBLIC StateMachineError : BOOL
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[PrintFailed('', '', '', 'Invalid State!', 'StateMachine');
 THIS^.nState := 16#FFFF;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="types_are_different" Id="{6fd6ea47-4c71-4be8-b309-e43ee9f206b4}">
+      <Declaration><![CDATA[METHOD types_are_different : BOOL
+VAR_INPUT
+  expected: ANY;
+  actual: ANY;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[types_are_different := expected.TypeClass <> actual.TypeClass;]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="FB_Assert">
@@ -820,7 +853,10 @@ THIS^.nState := 16#FFFF;]]></ST>
       <LineId Id="6" Count="6" />
       <LineId Id="2" Count="0" />
     </LineIds>
-    <LineIds Name="FB_Assert.Equal">
+    <LineIds Name="FB_Assert.CHECK_TRUE">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Assert.equal">
       <LineId Id="26" Count="0" />
       <LineId Id="8" Count="1" />
       <LineId Id="36" Count="1" />
@@ -878,6 +914,9 @@ THIS^.nState := 16#FFFF;]]></ST>
       <LineId Id="58" Count="0" />
       <LineId Id="6" Count="0" />
     </LineIds>
+    <LineIds Name="FB_Assert.sizes_are_different">
+      <LineId Id="5" Count="0" />
+    </LineIds>
     <LineIds Name="FB_Assert.State.Get">
       <LineId Id="2" Count="0" />
     </LineIds>
@@ -888,6 +927,9 @@ THIS^.nState := 16#FFFF;]]></ST>
     <LineIds Name="FB_Assert.StateMachineError">
       <LineId Id="2" Count="0" />
       <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Assert.types_are_different">
+      <LineId Id="8" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
