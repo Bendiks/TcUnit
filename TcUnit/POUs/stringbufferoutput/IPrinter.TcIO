@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.7">
+  <Itf Name="IPrinter" Id="{25c20b41-14da-4791-9709-036fa15c27d1}">
+    <Declaration><![CDATA[INTERFACE IPrinter
+]]></Declaration>
+    <Method Name="print" Id="{f560a1af-f6e3-43e3-b12a-48a42ee41636}">
+      <Declaration><![CDATA[METHOD print
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

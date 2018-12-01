@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.7">
+  <POU Name="TestStringBufferOutput" Id="{39f864d9-64bc-4189-b929-64fb5d786ddb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TestStringBufferOutput
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+  assert: FB_Assert('TestStringBufferOutput');
+  
+  test_sbo_compose_one_message: StringBufferOutput;
+  
+  test_sbo_compose_multiple_messages: StringBufferOutput;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[assert.AbortAfterFail := TRUE;
+CASE assert.State OF
+16#0000:
+  IF THIS^.compose_one_message() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#0010:
+  IF THIS^.compose_multiple_messages() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#FFFF:
+  ;
+ELSE
+  assert.PrintPassed('Done');
+END_CASE]]></ST>
+    </Implementation>
+    <Method Name="compose_multiple_messages" Id="{96f3da7f-eac2-4527-a977-32d5a6dcfba7}">
+      <Declaration><![CDATA[METHOD compose_multiple_messages : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected: STRING(80);
+  actual: STRING(80);
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[test_sbo_compose_multiple_messages.compose_message('world');
+test_sbo_compose_multiple_messages.compose_message('hello');
+test_sbo_compose_multiple_messages.compose_message('twincat');
+expected := 'worldhellotwincat';
+actual := test_sbo_compose_multiple_messages.get_output();
+compose_multiple_messages := assert.AreEqualSTRING(expected, actual, 'Compose multiple messages');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="compose_one_message" Id="{6bee1a68-a4e2-4600-b4de-d6f5bcbc109c}">
+      <Declaration><![CDATA[METHOD compose_one_message: BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected: STRING(80);
+  actual: STRING(80);
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[expected := 'hello';
+test_sbo_compose_one_message.compose_message(expected);
+actual := test_sbo_compose_one_message.get_output();
+compose_one_message := assert.AreEqualSTRING(expected, actual, 'Compose one message');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="TestStringBufferOutput">
+      <LineId Id="11" Count="2" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="36" Count="1" />
+      <LineId Id="41" Count="3" />
+      <LineId Id="29" Count="3" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="TestStringBufferOutput.compose_multiple_messages">
+      <LineId Id="5" Count="3" />
+      <LineId Id="12" Count="1" />
+    </LineIds>
+    <LineIds Name="TestStringBufferOutput.compose_one_message">
+      <LineId Id="9" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -32,8 +32,11 @@
     <Folder Include="GVLs" />
     <Folder Include="DUTs" />
     <Folder Include="POUs\assert" />
+    <Folder Include="POUs\mock" />
+    <Folder Include="POUs\stringbufferoutput" />
     <Folder Include="POUs\test" />
     <Folder Include="POUs\test\assert" />
+    <Folder Include="POUs\test\stringbufferoutput" />
     <Folder Include="Version" />
     <Folder Include="POUs" />
   </ItemGroup>
@@ -41,7 +44,25 @@
     <Compile Include="POUs\assert\FB_Assert.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\stringbufferoutput\IPrinter.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\stringbufferoutput\IStringBufferOutput.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\stringbufferoutput\PrinterMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\stringbufferoutput\StringBufferOutput.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\stringbufferoutput\TestResult.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\test\assert\TestAssert.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\test\stringbufferoutput\TestStringBufferOutput.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\test\TestMain.TcPOU">

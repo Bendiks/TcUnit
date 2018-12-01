@@ -4,13 +4,16 @@
     <Declaration><![CDATA[PROGRAM TestMain
 VAR
   test_assert: TestAssert;
+  test_sbo: TestStringBufferOutput;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[test_assert();]]></ST>
+      <ST><![CDATA[test_assert();
+test_sbo();]]></ST>
     </Implementation>
     <LineIds Name="TestMain">
       <LineId Id="5" Count="0" />
+      <LineId Id="11" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

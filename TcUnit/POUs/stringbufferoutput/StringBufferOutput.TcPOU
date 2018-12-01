@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.7">
+  <POU Name="StringBufferOutput" Id="{96897f13-93b5-4bf7-8010-d68bee21eb01}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK StringBufferOutput IMPLEMENTS IStringBufferOutput
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+  output_message: STRING(255);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="compose_message" Id="{ca98fe10-be10-412e-96f4-82fb32511f65}">
+      <Declaration><![CDATA[METHOD compose_message
+VAR_INPUT
+  message: STRING(80);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[output_message := CONCAT(output_message, message);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="get_output" Id="{e7610127-b8e7-41df-b955-7e3d2ba2a002}">
+      <Declaration><![CDATA[METHOD get_output : STRING(255)
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[get_output := output_message;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="StringBufferOutput">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="StringBufferOutput.compose_message">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="StringBufferOutput.get_output">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.7">
+  <Itf Name="IStringBufferOutput" Id="{35b0a204-129c-48f8-b09b-dfc58425a854}">
+    <Declaration><![CDATA[INTERFACE IStringBufferOutput
+]]></Declaration>
+    <Method Name="compose_message" Id="{a9e58824-89fd-43d5-aeaf-b45b4095e340}">
+      <Declaration><![CDATA[METHOD compose_message
+VAR_INPUT
+  message: STRING(80);
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="get_output" Id="{d818bb91-f3cd-44c9-b698-4c51e7748bc0}">
+      <Declaration><![CDATA[METHOD get_output : STRING(255)
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

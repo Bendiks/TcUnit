@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.7">
+  <POU Name="PrinterMock" Id="{d9744287-16f0-4a89-a520-2fb915872022}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PrinterMock IMPLEMENTS IPrinter
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="get_output" Id="{5cece63a-8a94-4427-ad4e-8cef92b0d800}">
+      <Declaration><![CDATA[METHOD get_output : STRING(255)
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="print" Id="{4f3bfdef-3848-4c83-8ac1-319bb95b1fee}">
+      <Declaration><![CDATA[{warning 'add method implementation'}
+METHOD print
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="PrinterMock">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="PrinterMock.get_output">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="PrinterMock.print">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
