@@ -33,6 +33,8 @@
     <Folder Include="DUTs" />
     <Folder Include="POUs\assert" />
     <Folder Include="POUs\mock" />
+    <Folder Include="POUs\test\util" />
+    <Folder Include="POUs\util" />
     <Folder Include="POUs\stringbufferoutput" />
     <Folder Include="POUs\test" />
     <Folder Include="POUs\test\assert" />
@@ -41,16 +43,19 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DUTs\MaxString.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\TypeClass.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\assert\FB_Assert.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\mock\PrinterMock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\stringbufferoutput\IPrinter.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\stringbufferoutput\IStringBufferOutput.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\stringbufferoutput\PrinterMock.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\stringbufferoutput\StringBufferOutput.TcPOU">
@@ -66,6 +71,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\test\TestMain.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\test\util\TestAnyToString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\util\_any_to_string.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TestTask.TcTTO">

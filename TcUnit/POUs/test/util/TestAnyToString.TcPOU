@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.7">
+  <POU Name="TestAnyToString" Id="{e3f564dd-9d1b-4c17-bf9f-2a4db2a30ec0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TestAnyToString
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+  assert: FB_Assert('TestAnyToString');
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[assert.AbortAfterFail := TRUE;
+CASE assert.State OF
+16#0000:
+  IF THIS^.transform_int_to_string() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#0010:
+  IF THIS^.transform_real_to_string() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#0020:
+  IF THIS^.transform_string_to_string() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#FFFF:
+  ;
+ELSE
+  assert.PrintPassed('Done');
+END_CASE]]></ST>
+    </Implementation>
+    <Method Name="transform_int_to_string" Id="{0b0c21a9-66ff-4830-9de5-e116677f2c88}">
+      <Declaration><![CDATA[METHOD transform_int_to_string : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected: STRING(10);
+  actual: STRING(10);
+  
+  expected_int: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[expected_int := 300;
+actual := _any_to_string(expected_int);
+expected := '300';
+transform_int_to_string := assert.AreEqualSTRING(expected, actual, 'Transform Int to String');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="transform_real_to_string" Id="{490a3233-c267-4c89-87f8-0049a24e8d1a}">
+      <Declaration><![CDATA[METHOD transform_real_to_string : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected: STRING(10);
+  actual: STRING(10);
+  
+  expected_real: REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[expected_real := 123.456;
+actual := _any_to_string(expected_real);
+expected := '123.456';
+transform_real_to_string := assert.AreEqualSTRING(expected, actual, 'Transform Real to String');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="transform_string_to_string" Id="{4523adc2-8204-4fe8-a9c7-eb6c28aefc54}">
+      <Declaration><![CDATA[METHOD transform_string_to_string : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected: STRING(10);
+  actual: STRING(10);
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[expected := 'foobar';
+actual := _any_to_string(expected);
+transform_string_to_string := assert.AreEqualSTRING(expected, actual, 'Transform String to String');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="TestAnyToString">
+      <LineId Id="11" Count="2" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="36" Count="1" />
+      <LineId Id="46" Count="7" />
+      <LineId Id="29" Count="3" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="TestAnyToString.transform_int_to_string">
+      <LineId Id="17" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="TestAnyToString.transform_real_to_string">
+      <LineId Id="6" Count="2" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="TestAnyToString.transform_string_to_string">
+      <LineId Id="15" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.7">
   <POU Name="StringBufferOutput" Id="{96897f13-93b5-4bf7-8010-d68bee21eb01}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK StringBufferOutput IMPLEMENTS IStringBufferOutput
+    <Declaration><![CDATA[FUNCTION_BLOCK StringBufferOutput
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
@@ -16,11 +16,14 @@ END_VAR
     <Method Name="compose_message" Id="{ca98fe10-be10-412e-96f4-82fb32511f65}">
       <Declaration><![CDATA[METHOD compose_message
 VAR_INPUT
-  message: STRING(80);
+  message: ANY;
 END_VAR
-]]></Declaration>
+VAR
+  message_str: MaxString;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[output_message := CONCAT(output_message, message);]]></ST>
+        <ST><![CDATA[message_str := _any_to_string(message);
+output_message := CONCAT(output_message, message_str);]]></ST>
       </Implementation>
     </Method>
     <Method Name="get_output" Id="{e7610127-b8e7-41df-b955-7e3d2ba2a002}">
@@ -34,6 +37,7 @@ END_VAR
       <LineId Id="9" Count="0" />
     </LineIds>
     <LineIds Name="StringBufferOutput.compose_message">
+      <LineId Id="11" Count="0" />
       <LineId Id="4" Count="0" />
     </LineIds>
     <LineIds Name="StringBufferOutput.get_output">

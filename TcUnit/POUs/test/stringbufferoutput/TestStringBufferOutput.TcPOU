@@ -10,8 +10,9 @@ VAR
   assert: FB_Assert('TestStringBufferOutput');
   
   test_sbo_compose_one_message: StringBufferOutput;
-  
   test_sbo_compose_multiple_messages: StringBufferOutput;
+  test_sbo_compose_int_message: StringBufferOutput;
+  test_sbo_compose_mixed_messages: StringBufferOutput;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -25,12 +26,64 @@ CASE assert.State OF
   IF THIS^.compose_multiple_messages() THEN
     assert.State := assert.State + 16#0010;
 	END_IF
+16#0020:
+  IF THIS^.compose_int_message() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
+16#0030:
+  IF THIS^.compose_mixed_messages() THEN
+    assert.State := assert.State + 16#0010;
+	END_IF
 16#FFFF:
   ;
 ELSE
   assert.PrintPassed('Done');
 END_CASE]]></ST>
     </Implementation>
+    <Method Name="compose_int_message" Id="{41b7c092-1d1b-4aba-888c-715c281ff8cf}">
+      <Declaration><![CDATA[METHOD compose_int_message : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected: STRING(10);
+  actual: STRING(10);
+  
+  expected_int: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[expected_int := 256;
+test_sbo_compose_int_message.compose_message(expected_int);
+expected := '256';
+actual := test_sbo_compose_int_message.get_output();
+compose_int_message := assert.AreEqualSTRING(expected, actual, 'Compose Int message');]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="compose_mixed_messages" Id="{99792124-7950-46cd-aa60-5b99326f8ee8}">
+      <Declaration><![CDATA[METHOD compose_mixed_messages : BOOL
+VAR_INPUT
+END_VAR
+VAR
+  expected: STRING(80);
+  actual: STRING(80);
+  
+  expected_str: STRING(80);
+  expected_real: REAL;
+  expected_int: INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[expected_str := 'foo ';
+test_sbo_compose_mixed_messages.compose_message(expected_str);
+expected_int := -17;
+test_sbo_compose_mixed_messages.compose_message(expected_int);
+expected_str := ' bar ';
+test_sbo_compose_mixed_messages.compose_message(expected_str);
+expected_real := 0.1;
+test_sbo_compose_mixed_messages.compose_message(expected_real);
+expected := 'foo -17 bar 0.1';
+actual := test_sbo_compose_mixed_messages.get_output();
+compose_mixed_messages := assert.AreEqualSTRING(expected, actual, 'Compose mixed messages');]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="compose_multiple_messages" Id="{96f3da7f-eac2-4527-a977-32d5a6dcfba7}">
       <Declaration><![CDATA[METHOD compose_multiple_messages : BOOL
 VAR_INPUT
@@ -38,11 +91,16 @@ END_VAR
 VAR
   expected: STRING(80);
   actual: STRING(80);
+  
+  expected_str: STRING(80);
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[test_sbo_compose_multiple_messages.compose_message('world');
-test_sbo_compose_multiple_messages.compose_message('hello');
-test_sbo_compose_multiple_messages.compose_message('twincat');
+        <ST><![CDATA[expected_str := 'world';
+test_sbo_compose_multiple_messages.compose_message(expected_str);
+expected_str := 'hello';
+test_sbo_compose_multiple_messages.compose_message(expected_str);
+expected_str := 'twincat';
+test_sbo_compose_multiple_messages.compose_message(expected_str);
 expected := 'worldhellotwincat';
 actual := test_sbo_compose_multiple_messages.get_output();
 compose_multiple_messages := assert.AreEqualSTRING(expected, actual, 'Compose multiple messages');]]></ST>
@@ -55,6 +113,8 @@ END_VAR
 VAR
   expected: STRING(80);
   actual: STRING(80);
+  
+  expected_str: STRING(80);
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[expected := 'hello';
@@ -68,11 +128,32 @@ compose_one_message := assert.AreEqualSTRING(expected, actual, 'Compose one mess
       <LineId Id="28" Count="0" />
       <LineId Id="36" Count="1" />
       <LineId Id="41" Count="3" />
+      <LineId Id="84" Count="3" />
+      <LineId Id="100" Count="3" />
       <LineId Id="29" Count="3" />
       <LineId Id="9" Count="0" />
     </LineIds>
+    <LineIds Name="TestStringBufferOutput.compose_int_message">
+      <LineId Id="20" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="9" Count="2" />
+    </LineIds>
+    <LineIds Name="TestStringBufferOutput.compose_mixed_messages">
+      <LineId Id="6" Count="3" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
     <LineIds Name="TestStringBufferOutput.compose_multiple_messages">
-      <LineId Id="5" Count="3" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="7" Count="1" />
       <LineId Id="12" Count="1" />
     </LineIds>
     <LineIds Name="TestStringBufferOutput.compose_one_message">
